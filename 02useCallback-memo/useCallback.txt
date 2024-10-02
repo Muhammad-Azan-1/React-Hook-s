@@ -1,0 +1,43 @@
+FIRST WE UNDERSTAND WHAT HAPPEN WHEN ANYTHIGN CHANGE IN UI
+
+Default React Behavior on Re-render:
+
+1) State/Prop Change:
+
+Anytime the state or props change in a component, React triggers a re-render of that component.
+This re-render happens because React needs to update the UI based on the new state or new props.
+
+2)Component Re-execution:
+
+When a component re-renders, React re-executes the entire component function.
+This means that everything inside the component—variables, functions, JSX (HTML-like code)—are recreated in memory during this re-execution.
+By default, every re-render re-creates all functions, variables, and the JSX.
+
+
+3)New Virtual DOM Creation:
+
+After the re-execution of the component, React creates a new virtual DOM for that component, reflecting the current state or prop changes.
+This virtual DOM is a lightweight copy of the actual DOM, used for comparison purposes.
+Reconciliation:
+
+4)React compares the new virtual DOM with the previous virtual DOM to identify any changes (this process is called reconciliation).
+It determines what parts of the virtual DOM have changed and need to be updated in the actual DOM.
+UI Update:
+
+Based on the reconciliation, React only updates the specific parts of the real DOM (UI) that have changed
+
+----
+So there is a problem when Anytime the state or props change in a component React re-render the whole component and any thing inside the 
+component is re-created , So by using usecallback() with any  function React memoized that function,and will reuse the same function  unless the dependenices  inside the 
+[dep1,dep2] not change.
+
+EXAMPLE:
+
+---------------------------------------------------------------------------------------------------------------------
+import React, { useState, useCallback } from 'react';
+
+----------------------------------------------------------------------------------------------------------------
+
+1) The handleClick function is memoized, so React will reuse the same function instance unless the count value changes.
+2)Without useCallback, handleClick would be recreated on every render, potentially causing performance issues or unnecessary re-renders 
+in child components that depend on it.
